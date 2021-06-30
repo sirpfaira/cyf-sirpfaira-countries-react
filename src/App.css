@@ -1,0 +1,23 @@
+.country-card {
+  background-color: aqua;
+  margin-bottom: 2rem;
+  padding: 0.8rem;
+  border-radius: 6px;
+}
+
+.countries-div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.country-flag {
+  width: 17rem;
+  height: auto;
+}
+
+.attribute-title {
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
