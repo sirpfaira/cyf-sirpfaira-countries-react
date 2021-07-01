@@ -1,15 +1,58 @@
+.container {
+  margin: 2rem;
+  color: black;
+}
+
+.header-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  background-color: white;
+  padding: 0.4rem;
+  border-radius: 5px;
+}
+.header-title-div {
+  margin-left: 1rem;
+}
+
+.header-theme-div {
+  display: flex;
+  flex-direction: row;
+  margin-right: 2rem;
+}
+
+.search-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.search-box {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 0px;
+}
+
+.region-select {
+  border: 0px;
+  padding: 0.5rem;
+}
+
 .country-card {
-  background-color: aqua;
+  background-color: white;
   margin-bottom: 2rem;
   padding: 0.8rem;
   border-radius: 6px;
+  margin-right: 1rem;
 }
 
 .countries-div {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .country-flag {
@@ -17,7 +60,11 @@
   height: auto;
 }
 
+.country-stat {
+  font-size: small;
+}
+
 .attribute-title {
-  font-weight: bold;
+  font-weight: 600;
   margin-right: 0.5rem;
 }
