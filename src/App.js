@@ -4,22 +4,45 @@ import allCountries from './data/countriesAll.json';
 
 function App() {
   const [searchWord, setSearchWord] = useState('');
+  const [region, setRegion] = useState('All Regions');
 
   const changeSearchWord = (event) => {
     setSearchWord(event.target.value);
   };
 
+  const changeRegion = (event) => {
+    setRegion(event.target.value);
+  };
+
   return (
     <div className='container'>
       <Header />
-      <Search changeSearchWord={changeSearchWord} />
-      <Countries countriesArray={allCountries} searchWord={searchWord} />
+      <Search changeSearchWord={changeSearchWord} changeRegion={changeRegion} />
+      <Countries
+        countriesArray={allCountries}
+        searchWord={searchWord}
+        region={region}
+      />
     </div>
   );
 }
 
-const Countries = ({ countriesArray, searchWord }) => {
-  let list = [...countriesArray];
+const Countries = ({ countriesArray, searchWord, region }) => {
+  let list = [];
+
+  if (region === 'All Regions') {
+    list = [...countriesArray];
+  } else if (region === 'Africa') {
+    list = countriesArray.filter((country) => country.region === 'Africa');
+  } else if (region === 'America') {
+    list = countriesArray.filter((country) => country.region === 'Americas');
+  } else if (region === 'Asia') {
+    list = countriesArray.filter((country) => country.region === 'Asia');
+  } else if (region === 'Europe') {
+    list = countriesArray.filter((country) => country.region === 'Europe');
+  } else if (region === 'Oceania') {
+    list = countriesArray.filter((country) => country.region === 'Oceania');
+  }
 
   if (searchWord) {
     const tempArr = [...countriesArray];
@@ -80,8 +103,15 @@ const Header = () => {
   );
 };
 
-const Search = ({ changeSearchWord }) => {
-  const regions = ['Africa', 'America', 'Asia', 'Europe', 'Oceania'];
+const Search = ({ changeSearchWord, changeRegion }) => {
+  const regions = [
+    'All Regions',
+    'Africa',
+    'America',
+    'Asia',
+    'Europe',
+    'Oceania',
+  ];
   return (
     <div className='search-div'>
       <input
@@ -90,9 +120,11 @@ const Search = ({ changeSearchWord }) => {
         placeholder='Search for a country'
         onChange={changeSearchWord}
       />
-      <select class='region-select'>
+      <select className='region-select' onChange={changeRegion}>
         {regions.map((region, index) => (
-          <option value={index}>{region}</option>
+          <option key={index} value={region}>
+            {region}
+          </option>
         ))}
       </select>
     </div>
