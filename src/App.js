@@ -12,6 +12,7 @@ function App() {
   const [region, setRegion] = useState('All Regions');
   //const [index, setIndex] = useState(0);
   const [view, setView] = useState({ main: true, countryCode: null });
+  const [lightTheme, setLightTheme] = useState(false);
 
   const changeSearchWord = (event) => {
     setSearchWord(event.target.value);
@@ -32,7 +33,13 @@ function App() {
 
   if (!view.main) {
     return (
-      <div className='container'>
+      <div
+        className={
+          lightTheme
+            ? 'container light-text light-bg'
+            : 'container dark-text dark-accent-bg'
+        }
+      >
         <Header />
         <CountryDetails
           allCountries={allCountries}
@@ -43,11 +50,18 @@ function App() {
     );
   } else {
     return (
-      <div className='container'>
-        <Header />
+      <div
+        className={
+          lightTheme
+            ? 'container light-text light-bg'
+            : 'container dark-text dark-accent-bg'
+        }
+      >
+        <Header lightTheme={lightTheme} />
         <Search
           changeSearchWord={changeSearchWord}
           changeRegion={changeRegion}
+          lightTheme={lightTheme}
         />
         <Countries
           countriesArray={allCountries}
@@ -107,7 +121,7 @@ const Countries = ({
 const Country = ({ country, handleCountryClick }) => {
   return (
     <div
-      className='country-card'
+      className='country-card light-bg light-shadow'
       onClick={handleCountryClick}
       data-id={country.alpha3Code}
     >
@@ -139,21 +153,27 @@ const Country = ({ country, handleCountryClick }) => {
   );
 };
 
-const Header = () => {
+const Header = ({ lightTheme }) => {
   return (
-    <div className='header-div'>
+    <div
+      className={
+        lightTheme
+          ? 'header-div light-shadow light-bg'
+          : 'header-div dark-shadow dark-bg'
+      }
+    >
       <div className='header-title-div'>
         <h3 className='header-title'>Where in the world?</h3>
       </div>
       <div className='header-theme-div'>
         <img src={darkIcon} alt='Theme icon' className='theme-icon' />
-        <p className='theme-name'>Dark Mode</p>
+        <p className='theme-name'>{lightTheme ? 'Dark Mode' : 'Light Mode'}</p>
       </div>
     </div>
   );
 };
 
-const Search = ({ changeSearchWord, changeRegion }) => {
+const Search = ({ changeSearchWord, changeRegion, lightTheme }) => {
   const regions = [
     'All Regions',
     'Africa',
@@ -165,12 +185,23 @@ const Search = ({ changeSearchWord, changeRegion }) => {
   return (
     <div className='search-div'>
       <input
-        className='search-box'
+        className={
+          lightTheme
+            ? 'search-box light-shadow'
+            : 'search-box dark-shadow dark-bg'
+        }
         type='text'
         placeholder='Search for a country'
         onChange={changeSearchWord}
       />
-      <select className='region-select' onChange={changeRegion}>
+      <select
+        className={
+          lightTheme
+            ? 'region-select light-shadow light-bg'
+            : 'region-select dark-shadow dark-bg'
+        }
+        onChange={changeRegion}
+      >
         {regions.map((region, index) => (
           <option key={index} value={region}>
             {region}
