@@ -216,3 +216,42 @@
   font-weight: bold;
   margin-right: 1rem;
 }
+
+/*RESOLUTIONS-: 1. MOBILE PHONE - 360px, 2. TABLET - 640px, PC - 1008px*/
+@media (max-width: 600px) {
+  .country-card {
+    margin-bottom: 2rem;
+    padding: 0.8rem;
+    width: 100%;
+  }
+  .country-flag {
+    width: 100%;
+    height: auto;
+  }
+
+  .country-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  .flag-div {
+    width: 100%;
+    height: auto;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 860px) {
+  .country-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  .flag-div {
+    width: 100%;
+    height: auto;
+    margin-bottom: 2rem;
+  }
+}
