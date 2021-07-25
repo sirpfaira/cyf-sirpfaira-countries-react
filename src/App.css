@@ -240,6 +240,10 @@
     height: auto;
     margin-bottom: 2rem;
   }
+  .borders-div {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 860px) {
