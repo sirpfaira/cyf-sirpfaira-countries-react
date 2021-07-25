@@ -233,6 +233,7 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
+    justify-items: center;
   }
 
   .flag-div {
@@ -243,6 +244,46 @@
   .borders-div {
     display: flex;
     flex-direction: column;
+  }
+
+  .header-div {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .search-div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+  }
+  .info-div {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    line-height: 60%;
+  }
+
+  .info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .header-theme-div {
+    display: flex;
+    flex-direction: row;
+    margin-left: 1rem;
+    justify-items: center;
+    width: max-content;
+  }
+
+  .search-box {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
   }
 }
 
