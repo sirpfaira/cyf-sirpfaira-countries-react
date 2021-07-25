@@ -1,10 +1,17 @@
 import { useState } from 'react';
 import './App.css';
+//import allCountries from './data/countriesFew.json';
 import allCountries from './data/countriesAll.json';
+import CountryDetails from './CountryDetails';
+import darkIcon from './data/dark.png';
+//import lightIcon from './data/light.png';
 
 function App() {
+  //const [mainView, setMainView] = useState(true);
   const [searchWord, setSearchWord] = useState('');
   const [region, setRegion] = useState('All Regions');
+  //const [index, setIndex] = useState(0);
+  const [view, setView] = useState({ main: true, countryCode: null });
 
   const changeSearchWord = (event) => {
     setSearchWord(event.target.value);
@@ -14,20 +21,51 @@ function App() {
     setRegion(event.target.value);
   };
 
-  return (
-    <div className='container'>
-      <Header />
-      <Search changeSearchWord={changeSearchWord} changeRegion={changeRegion} />
-      <Countries
-        countriesArray={allCountries}
-        searchWord={searchWord}
-        region={region}
-      />
-    </div>
-  );
+  const handleCountryClick = (event) => {
+    //console.log(`id: ${event.target.attributes.getNamedItem('data-id').value}`);
+    //setMainView(!mainView);
+    setView({
+      main: !view.main,
+      countryCode: event.currentTarget.getAttribute('data-id'),
+    });
+  };
+
+  if (!view.main) {
+    return (
+      <div className='container'>
+        <Header />
+        <CountryDetails
+          allCountries={allCountries}
+          countryCode={view.countryCode}
+          handleCountryClick={handleCountryClick}
+        />
+      </div>
+    );
+  } else {
+    return (
+      <div className='container'>
+        <Header />
+        <Search
+          changeSearchWord={changeSearchWord}
+          changeRegion={changeRegion}
+        />
+        <Countries
+          countriesArray={allCountries}
+          searchWord={searchWord}
+          region={region}
+          handleCountryClick={handleCountryClick}
+        />
+      </div>
+    );
+  }
 }
 
-const Countries = ({ countriesArray, searchWord, region }) => {
+const Countries = ({
+  countriesArray,
+  searchWord,
+  region,
+  handleCountryClick,
+}) => {
   let list = [];
 
   if (region === 'All Regions') {
@@ -45,7 +83,7 @@ const Countries = ({ countriesArray, searchWord, region }) => {
   }
 
   if (searchWord) {
-    const tempArr = [...countriesArray];
+    const tempArr = [...list];
     list = tempArr.filter(
       (country) =>
         country.name.toUpperCase().includes(searchWord.toUpperCase()) ||
@@ -55,16 +93,24 @@ const Countries = ({ countriesArray, searchWord, region }) => {
 
   return (
     <div className='countries-div'>
-      {list.map((country) => (
-        <Country country={country} />
+      {list.map((country, index) => (
+        <Country
+          country={country}
+          handleCountryClick={handleCountryClick}
+          key={index.toString()}
+        />
       ))}
     </div>
   );
 };
 
-const Country = ({ country }) => {
+const Country = ({ country, handleCountryClick }) => {
   return (
-    <div className='country-card'>
+    <div
+      className='country-card'
+      onClick={handleCountryClick}
+      data-id={country.alpha3Code}
+    >
       <div className='image-div'>
         <img
           src={country.flag}
@@ -73,17 +119,21 @@ const Country = ({ country }) => {
         />
       </div>
       <div className='content-div'>
-        <h4 className='country-name'>{country.name}</h4>
-        <p className='country-stat'>
-          <span className='attribute-title'>Population:</span>{' '}
-          {country.population.toLocaleString()}
-        </p>
-        <p className='country-stat'>
-          <span className='attribute-title'>Region:</span> {country.region}
-        </p>
-        <p className='country-stat'>
-          <span className='attribute-title'>Capital:</span> {country.capital}
-        </p>
+        <div className='name-div'>
+          <h4 className='country-name'>{country.name}</h4>
+        </div>
+        <div className='stat-div'>
+          <p className='country-stat'>
+            <span className='attribute-title'>Population:</span>{' '}
+            {country.population.toLocaleString()}
+          </p>
+          <p className='country-stat'>
+            <span className='attribute-title'>Region:</span> {country.region}
+          </p>
+          <p className='country-stat'>
+            <span className='attribute-title'>Capital:</span> {country.capital}
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -96,7 +146,7 @@ const Header = () => {
         <h3 className='header-title'>Where in the world?</h3>
       </div>
       <div className='header-theme-div'>
-        <img src='#' alt='Theme icon' />
+        <img src={darkIcon} alt='Theme icon' className='theme-icon' />
         <p className='theme-name'>Dark Mode</p>
       </div>
     </div>
