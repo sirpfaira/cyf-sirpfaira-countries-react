@@ -4,7 +4,7 @@ import './App.css';
 import allCountries from './data/countriesAll.json';
 import CountryDetails from './CountryDetails';
 import darkIcon from './data/dark.png';
-//import lightIcon from './data/light.png';
+import lightIcon from './data/light.png';
 
 function App() {
   //const [mainView, setMainView] = useState(true);
@@ -12,12 +12,15 @@ function App() {
   const [region, setRegion] = useState('All Regions');
   //const [index, setIndex] = useState(0);
   const [view, setView] = useState({ main: true, countryCode: null });
-  const [lightTheme, setLightTheme] = useState(false);
+  const [lightTheme, setLightTheme] = useState(true);
 
   const changeSearchWord = (event) => {
     setSearchWord(event.target.value);
   };
 
+  const changeTheme = (event) => {
+    setLightTheme(!lightTheme);
+  };
   const changeRegion = (event) => {
     setRegion(event.target.value);
   };
@@ -40,11 +43,12 @@ function App() {
             : 'container dark-text dark-accent-bg'
         }
       >
-        <Header />
+        <Header lightTheme={lightTheme} changeTheme={changeTheme} />
         <CountryDetails
           allCountries={allCountries}
           countryCode={view.countryCode}
           handleCountryClick={handleCountryClick}
+          lightTheme={lightTheme}
         />
       </div>
     );
@@ -57,7 +61,7 @@ function App() {
             : 'container dark-text dark-accent-bg'
         }
       >
-        <Header lightTheme={lightTheme} />
+        <Header lightTheme={lightTheme} changeTheme={changeTheme} />
         <Search
           changeSearchWord={changeSearchWord}
           changeRegion={changeRegion}
@@ -68,6 +72,7 @@ function App() {
           searchWord={searchWord}
           region={region}
           handleCountryClick={handleCountryClick}
+          lightTheme={lightTheme}
         />
       </div>
     );
@@ -79,6 +84,7 @@ const Countries = ({
   searchWord,
   region,
   handleCountryClick,
+  lightTheme,
 }) => {
   let list = [];
 
@@ -112,16 +118,21 @@ const Countries = ({
           country={country}
           handleCountryClick={handleCountryClick}
           key={index.toString()}
+          lightTheme={lightTheme}
         />
       ))}
     </div>
   );
 };
 
-const Country = ({ country, handleCountryClick }) => {
+const Country = ({ country, handleCountryClick, lightTheme }) => {
   return (
     <div
-      className='country-card light-bg light-shadow'
+      className={
+        lightTheme
+          ? 'country-card light-bg light-shadow'
+          : 'country-card dark-bg dark-shadow'
+      }
       onClick={handleCountryClick}
       data-id={country.alpha3Code}
     >
@@ -153,7 +164,7 @@ const Country = ({ country, handleCountryClick }) => {
   );
 };
 
-const Header = ({ lightTheme }) => {
+const Header = ({ lightTheme, changeTheme }) => {
   return (
     <div
       className={
@@ -165,8 +176,12 @@ const Header = ({ lightTheme }) => {
       <div className='header-title-div'>
         <h3 className='header-title'>Where in the world?</h3>
       </div>
-      <div className='header-theme-div'>
-        <img src={darkIcon} alt='Theme icon' className='theme-icon' />
+      <div className='header-theme-div' onClick={changeTheme}>
+        <img
+          src={lightTheme ? darkIcon : lightIcon}
+          alt='Theme icon'
+          className='theme-icon'
+        />
         <p className='theme-name'>{lightTheme ? 'Dark Mode' : 'Light Mode'}</p>
       </div>
     </div>
@@ -187,8 +202,8 @@ const Search = ({ changeSearchWord, changeRegion, lightTheme }) => {
       <input
         className={
           lightTheme
-            ? 'search-box light-shadow'
-            : 'search-box dark-shadow dark-bg'
+            ? 'search-box light-shadow light-text'
+            : 'search-box dark-shadow dark-bg dark-text'
         }
         type='text'
         placeholder='Search for a country'
@@ -197,8 +212,8 @@ const Search = ({ changeSearchWord, changeRegion, lightTheme }) => {
       <select
         className={
           lightTheme
-            ? 'region-select light-shadow light-bg'
-            : 'region-select dark-shadow dark-bg'
+            ? 'region-select light-shadow light-bg light-text'
+            : 'region-select dark-shadow dark-bg dark-text'
         }
         onChange={changeRegion}
       >

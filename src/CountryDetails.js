@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import './App.css';
 
-const CountryDetails = ({ allCountries, countryCode, handleCountryClick }) => {
+const CountryDetails = ({
+  allCountries,
+  countryCode,
+  handleCountryClick,
+  lightTheme,
+}) => {
   const [country, setCountry] = useState(
     allCountries.find((el) => el.alpha3Code === countryCode)
   );
@@ -17,8 +22,15 @@ const CountryDetails = ({ allCountries, countryCode, handleCountryClick }) => {
   };
 
   return (
-    <div className='details-container'>
-      <BackButton handleCountryClick={handleCountryClick} />
+    <div
+      className={
+        lightTheme ? 'details-container light-shadow' : 'detail-container'
+      }
+    >
+      <BackButton
+        handleCountryClick={handleCountryClick}
+        lightTheme={lightTheme}
+      />
       <div className='country-container'>
         <Flag country={country} />
         <div className='info-container'>
@@ -32,6 +44,7 @@ const CountryDetails = ({ allCountries, countryCode, handleCountryClick }) => {
               allCountries={allCountries}
               country={country}
               onNeighbourClick={onNeighbourClick}
+              lightTheme={lightTheme}
             />
           </div>
         </div>
@@ -40,7 +53,12 @@ const CountryDetails = ({ allCountries, countryCode, handleCountryClick }) => {
   );
 };
 
-const BorderCountries = ({ allCountries, country, onNeighbourClick }) => {
+const BorderCountries = ({
+  allCountries,
+  country,
+  onNeighbourClick,
+  lightTheme,
+}) => {
   //let borderNations = ['Brazil', 'Netherlands', 'Gokwe'];
   const neighbourCodes = country.borders;
 
@@ -60,7 +78,11 @@ const BorderCountries = ({ allCountries, country, onNeighbourClick }) => {
       {borderNations.map((nation, i) => (
         <button
           key={i}
-          className='border-button'
+          className={
+            lightTheme
+              ? 'border-button light-shadow light-text light-bg'
+              : 'border-button dark-shadow dark-text dark-bg'
+          }
           onClick={onNeighbourClick}
           data-id={nation.alpha3Code}
         >
@@ -121,11 +143,32 @@ const Flag = ({ country }) => {
   );
 };
 
-const BackButton = ({ handleCountryClick }) => {
+const BackButton = ({ handleCountryClick, lightTheme }) => {
   return (
-    <div className='back-button-div' onClick={handleCountryClick}>
-      <button type='button' className='back-button'>
-        <span className='fa fa-arrow-left'></span> Back
+    <div
+      className={
+        lightTheme
+          ? 'back-button-div light-bg light-shadow'
+          : 'back-button-div dark-bg dark-shadow dark-margins'
+      }
+      onClick={handleCountryClick}
+    >
+      <button
+        type='button'
+        className={
+          lightTheme
+            ? 'back-button light-bg light-text'
+            : 'back-button dark-text dark-bg'
+        }
+      >
+        <span
+          className={
+            lightTheme
+              ? 'fa fa-arrow-left light-text'
+              : 'fa fa-arrow-left dark-text'
+          }
+        ></span>{' '}
+        Back
       </button>
     </div>
   );

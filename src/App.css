@@ -8,8 +8,13 @@
 }
 
 .container {
-  width: max-content;
+  min-width: 100%;
+  min-height: 41rem;
   padding: 2rem;
+}
+
+.dark-margins {
+  margin-top: 2rem;
 }
 
 .light-text {
@@ -31,7 +36,7 @@
 .dark-shadow {
   border-radius: 6px;
   border-style: solid;
-  border-color: var(--dark-accent);
+  border-color: var(--dark-bg);
   border-width: 1px;
   box-shadow: 2px 3px var(--dark-accent);
 }
@@ -55,6 +60,7 @@
   padding-bottom: 0.5rem;
   justify-items: center;
 }
+
 .header-title-div {
   margin-left: 1rem;
 }
@@ -147,10 +153,6 @@
 .details-container {
   width: 100%;
   padding: 2rem;
-  border-radius: 6px;
-  box-shadow: 2px 3px var(--light-shadow);
-  background-color: var(--white-color);
-  border-radius: 5px;
   margin-top: 0.3rem;
 }
 .country-container {
@@ -182,7 +184,7 @@
 }
 
 .primary-div {
-  margin-right: 2rem;
+  margin-right: 4rem;
 }
 
 .info-container {
@@ -193,35 +195,24 @@
 }
 
 .back-button-div {
-  border-radius: 6px;
-  border-style: solid;
-  border-color: var(--light-shadow);
-  border-width: 1px;
-  box-shadow: 2px 3px var(--light-shadow);
   margin-bottom: 2rem;
   width: 7rem;
-  background-color: var(--white-color);
   padding: 0.4rem;
 }
 .back-button {
   border: 0px;
   width: 100%;
-  background-color: var(--white-color);
   border-radius: 6px;
 }
 .border-button {
-  border-radius: 6px;
-  border-style: solid;
-  border-color: var(--light-shadow);
-  border-width: 1px;
-  box-shadow: 2px 3px var(--light-shadow);
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  margin-left: 1rem;
+  margin-right: 1rem;
   margin-bottom: 1rem;
   min-width: 5rem;
 }
 
 .borders-text {
   font-weight: bold;
+  margin-right: 1rem;
 }
